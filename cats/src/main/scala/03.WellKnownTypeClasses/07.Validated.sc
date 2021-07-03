@@ -77,6 +77,7 @@ val listApplicative: Applicative[List] = new Applicative[List] {
       case (f :: fs, a :: as) => (a :: as).fmap(f) ++ ap(fs)(a :: as)
       case _ => Nil
     }
+
 }
 
 listApplicative.map2(List(1, 2, 3), List(4, 5))(_ + _)
