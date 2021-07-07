@@ -1,5 +1,4 @@
 import java.io.FileOutputStream
-import java.nio.ByteBuffer
 
 import scala.util.Using
 

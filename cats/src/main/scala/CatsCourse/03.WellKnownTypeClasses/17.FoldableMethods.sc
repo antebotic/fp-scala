@@ -58,3 +58,5 @@ findC(li4)(n => n % 2 == 0)
 
 li3.exists(n => n > 10)
 li4.exists(n => n > 10)
+
+
