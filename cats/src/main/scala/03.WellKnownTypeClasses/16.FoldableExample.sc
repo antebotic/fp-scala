@@ -4,14 +4,13 @@ import scala.annotation.tailrec
 
 sealed trait MList[+A]
 
-final case class MCons[+A](hd: A, tl: MList[A]) extends MList[A]
-case object MNil extends MList[Nothing]
-
-
 object MList {
   def apply[A](elems: A*): MList[A] ={
     elems.foldRight(mnil[A])((a, b) => mcons(a, b))
   }
+
+  final case class MCons[+A](hd: A, tl: MList[A]) extends MList[A]
+  case object MNil extends MList[Nothing]
 
   def mnil[A]: MList[A] = MNil
   def mcons[A](hd: A, tl: MList[A]): MList[A] = MCons(hd, tl)
