@@ -24,3 +24,6 @@ libraryDependencies += "org.http4s"   	%% "http4s-blaze-server"  % Http4sVersion
 libraryDependencies += "org.http4s"	    %% "http4s-circe" 	      % Http4sVersion
 libraryDependencies += "org.http4s"	    %% "http4s-dsl" 	        % Http4sVersion
 libraryDependencies += "io.circe"	      %% "circe-generic"	      % CirceVersion
+libraryDependencies += "org.http4s"     %% "http4s-blaze-client"  % Http4sVersion
+
+

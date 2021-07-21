@@ -135,7 +135,7 @@ object Http4sTutorial extends IOApp{
     val apis = Router(
       "/api" -> movieRoutes[IO],
       "/api/admin" -> directorRoutes[IO]
-    ).orNotFound
+    ).orNotFound // can be used insead of allRoutesComplete, different approach
 
     BlazeServerBuilder[IO](runtime.compute)
       .bindHttp(4428, "localhost")
