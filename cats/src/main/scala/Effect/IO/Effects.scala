@@ -71,5 +71,70 @@ object Effects {
 
   anIO.unsafeRun()
 
+  /*
+  * Exercises
+  * 1. An IO which returns the current time of the system
+  * 2. An IO which measures the duration of the computation
+  * 3. An IO which prints something to the console
+  * 4. An IO which reads a line (a string) from the std input
+  * */
+
+  // 1
+  def currentTime: MyIO[Long] = MyIO(() => System.currentTimeMillis())
+  val ct = currentTime.unsafeRun()
+
+  // 2
+  def measure[A](computation: MyIO[A]): MyIO[Long] = {
+    val start = currentTime.unsafeRun()
+    // this is very slow compared to for-comp v2, 20ms or so slower
+    computation.flatMap(_ => MyIO(() => currentTime.unsafeRun() - start))
+
+    currentTime.flatMap(start =>
+      computation.flatMap(_ =>
+        currentTime.flatMap(end =>
+          MyIO(() => end - start)
+        )
+      )
+    )
+  }
+
+  def measure_v2[A](computation: MyIO[A]): MyIO[Long] =
+    for {
+      startTime <- currentTime
+      _         <- computation
+      endTime   <- currentTime
+    } yield endTime - startTime
+
+
+  val sleepOne: MyIO[Unit] = MyIO(() => {
+    Thread.sleep(1000)
+  })
+
+  val measureTest     = measure(sleepOne)
+  val measureTest_v2  = measure_v2(sleepOne)
+
+  // 3
+  def printIO[A](line: MyIO[A]): MyIO[Unit] =
+   MyIO(() => println(line.unsafeRun().toString))
+
+  printIO(measureTest).unsafeRun()
+  printIO(measureTest_v2).unsafeRun()
+
+  // 4
+  val readIO: MyIO[Unit] =
+    MyIO(() => scala.io.StdIn.readLine())
+
+  val readIO_v2: MyIO[String] =
+    MyIO(() => {
+      val readL = scala.io.StdIn.readLine()
+      readL
+    })
+
+  printIO(readIO).unsafeRun()     // returns unit
+  printIO(readIO_v2).unsafeRun()  // returns input of readLine
+
+
   def main(args: Array[String]): Unit = {}
 }
+
+
