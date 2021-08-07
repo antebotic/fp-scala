@@ -133,8 +133,5 @@ object Effects {
   printIO(readIO).unsafeRun()     // returns unit
   printIO(readIO_v2).unsafeRun()  // returns input of readLine
 
-
   def main(args: Array[String]): Unit = {}
 }
-
-
