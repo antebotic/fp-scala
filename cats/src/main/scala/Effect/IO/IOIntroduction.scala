@@ -106,7 +106,7 @@ object IOIntroduction {
   def asUnit_v2[A](ioa: IO[A]): IO[Unit] =
     ioa.as(()) // not very readable
 
-  def asUnit[A](ioa: IO[A]): IO[Unit] =
+  def asUnit_v3[A](ioa: IO[A]): IO[Unit] =
     ioa.void // built in method to discard and return unit
 
 
