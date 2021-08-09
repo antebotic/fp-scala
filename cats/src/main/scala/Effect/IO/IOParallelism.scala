@@ -78,8 +78,6 @@ object IOParallelism extends IOApp.Simple {
         }
         case Success(number) => IO.pure(number)
       }
-
-
     }
 
     def runSelected(selected: IO[Int]): IO[Unit] =
@@ -102,5 +100,4 @@ object IOParallelism extends IOApp.Simple {
     } yield ()
 
   }
-
 }
