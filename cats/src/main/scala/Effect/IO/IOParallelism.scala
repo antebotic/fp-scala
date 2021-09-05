@@ -67,7 +67,6 @@ object IOParallelism extends IOApp.Simple {
     val availableEffects: IO[Unit] = IO.delay(
       println("Select effect to be ran(1 - 6):")
     )
-
     //maybe rewrite this using redeemWith
     def pickEffect: IO[Int] = {
       val choice    = StdIn.readLine()

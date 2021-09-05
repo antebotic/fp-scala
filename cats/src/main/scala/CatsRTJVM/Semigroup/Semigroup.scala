@@ -43,6 +43,7 @@ object Semigroups {
     list.reduce(_ |+| _)
 
 
+
   def main(args: Array[String]): Unit = {
     println(intCombination)
     println(stringCombination)

@@ -67,7 +67,7 @@ object IntroConcurency extends App{
     println(s"I've bought ${thing}, my account now is ${account} ")
   }
 
-  for (_ <- 1  to 1000) {
+  for (_ <- 1  to 100) {
     val account = new BankAccount(amount = 50000)
     val thread1 = new Thread(() => buy(account, "shoes", price = 3000))
     val thread2 = new Thread(() => buy(account, "iPhone12", price = 4000))
@@ -78,4 +78,14 @@ object IntroConcurency extends App{
     Thread.sleep(10)
     if(account.amount != 43000) println()
   }
+
+  //Safeguarding agains race conditions
+  // Option 1: use synchronized()
+
+  def buySafe(account: BankAccount, thing: String, price: Int) =
+    account.synchronized({
+      account.amount -= price
+      println("I've bought" + thing)
+      println("My account is now" + account)
+    })
 }

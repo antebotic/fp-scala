@@ -5,6 +5,7 @@ import cats.implicits._
 import cats.effect._
 import io.circe.syntax._
 import org.http4s._
+import org.http4s.circe._
 import org.http4s.dsl.Http4sDsl
 import org.http4s.dsl.io._
 import org.http4s.implicits._
@@ -13,9 +14,9 @@ import org.http4s.server.blaze.BlazeServerBuilder
 
 object DSL extends IOApp {
 
-  val service: HttpRoutes[IO] = HttpRoutes.of[IO] {
-    case _ => IO(Response(Status.Ok))
-  }
+//  val service: HttpRoutes[IO] = HttpRoutes.of[IO] {
+//    case _ => IO(Response(Status.Ok))
+//  }
 
   def service[F[_]: Monad]: HttpRoutes[F] = {
     val service = HttpRoutes.of[F] {
@@ -23,6 +24,13 @@ object DSL extends IOApp {
     }
 
     service
+  }
+
+  def cookies[F[_]: Monad]: HttpRoutes[F] = {
+    HttpRoutes.of[F] {
+      case GET -> Root / resp => Ok(resp.asJson)
+      case _                  => Ok()
+    }
   }
 
   def routes[F[_]: Monad]: HttpApp[F] =

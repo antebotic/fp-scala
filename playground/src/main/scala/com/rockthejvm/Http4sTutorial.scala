@@ -145,3 +145,4 @@ object Http4sTutorial extends IOApp{
       .as(ExitCode.Success)
   }
 }
+
