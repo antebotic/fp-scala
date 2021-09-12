@@ -4,9 +4,9 @@
 object Exercise2_2{
   def isSorted[A](as: Array[A], ordered: (A, A) => Boolean): Boolean = {
     def go(len: Int, idx: Int, acc: Boolean): Boolean= {
-      if(acc == false)    false
-      else if(idx < len -1)  go(len, idx+1, acc && ordered(as(idx), as(idx + 1)))
-      else                acc
+      if(acc == false)      false
+      else if(idx < len -1) go(len, idx+1, acc && ordered(as(idx), as(idx + 1)))
+      else                  acc
     }
 
     go(as.length, 0, true)
